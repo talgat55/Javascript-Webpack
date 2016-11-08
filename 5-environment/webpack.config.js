@@ -24,6 +24,16 @@ module.exports = {
         LANG: JSON.stringify("ru")
     }) 
   ],
+  resolve:{
+    modulesDirectories: ["node_modules"],
+    extensions: ["",".js"], 
+
+  },
+  resolveLoader:{
+    modulesDirectories: ["node_modules"],
+    moduleTemplates:   ["*-loader","*"],
+    extensions: ["",".js"], 
+  },
   module:{
     loader:[{
       test:   /\.js$/,
@@ -31,4 +41,15 @@ module.exports = {
     }]
   }
   
+}
+if (NODE_ENV=="production"){
+  module.exports.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+            drop_controle: true,
+            unsafe: true
+        }
+    })
+  )
 }
